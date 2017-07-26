@@ -1,0 +1,18 @@
+server:
+  port: 9090
+  
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/test
+    password: 123456
+    username: feco
+    driver-class-name: com.mysql.jdbc.Driver
+    
+api:
+  realm: My-Realm
+  
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: /api-docs

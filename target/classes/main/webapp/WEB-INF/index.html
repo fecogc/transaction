@@ -1,0 +1,71 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+
+        <p>Hello!</p>
+		<input type="button" id="myButton" value="Click">
+
+        <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+		
+		<script>
+			$(document).ready(function() {
+				console.log("ready!");
+				
+				$('#myButton').click(function() {
+					var id = getRandomInt(1, 1000);
+					console.log("click! ", id);
+					insert(id);					
+				});
+			});
+			
+			function insert(id)
+			{
+				$.ajax({
+					type: "POST",
+					contentType: "application/json; charset=utf-8",
+					url: '/MyOrder',
+					data: '{"name": "name' + id + '", "id": ' + id + '}',
+				}).done(function(xhr, statusText){
+					console.log("done insert");
+					cancel(id);
+					cancel(id);
+					cancel(id);
+				}).fail(function(xhr, statusText){
+					console.log("error insert", xhr.status);
+				}).always(function() {
+					console.log("finished insert");
+				});
+			}
+			
+			function cancel(id)
+			{
+				console.log("start cancel");
+				$.ajax({
+					type: "POST",
+					contentType: "application/json; charset=utf-8",
+					url: '/MyOrder/cancel',
+					data: JSON.stringify(id)
+				}).done(function(xhr, statusText){
+					console.log("done cancel");
+				}).fail(function(xhr, statusText){
+					console.log("error cancel", xhr.status);
+				}).always(function() {
+					console.log("finished cancel");
+				});
+			}
+			
+			function getRandomInt(min, max) {
+				min = Math.ceil(min);
+				max = Math.floor(max);
+				return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+			}
+		</script>
+    </body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+
+        <p>Hello!</p>
+		<input type="button" id="myButton" value="Click">
+
+        <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+		
+		<script>
+			$(document).ready(function() {
+				console.log("ready!");
+				
+				$('#myButton').click(function() {
+					console.log("click!");
+					doPost();
+				});
+			});
+			
+			function doPost()
+			{
+				$.ajax({
+					type: "POST",
+					url: '/MyOrder/cancel',
+					data: 1
+				}).done(function(xhr, statusText){
+					console.log("done");
+				}).fail(function(xhr, statusText){
+					console.log("error", xhr.status);
+				}).always(function() {
+					console.log("finished");
+				});
+			}
+		</script>
+    </body>
+</html>
